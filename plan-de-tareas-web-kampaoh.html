@@ -49,11 +49,12 @@
   pre .c{color:#7fb069}
   .note{border-left:4px solid var(--yellow-d);background:#fffdf2;padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0;font-size:14.5px}
   .note.crit{border-color:var(--red);background:var(--red-bg)}
+  .note.win{border-color:var(--green);background:var(--green-bg)}
   .block-h{border-left:5px solid var(--yellow);padding-left:12px;margin-top:38px}
   .block-h h2{margin:0}
   .block-h .bsub{color:var(--muted);font-size:13.5px}
   table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
-  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
   th{background:#fafafa;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.3px;color:#555}
   .road td:first-child{font-weight:700}
   footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:13px}
@@ -62,39 +63,11 @@
 </head>
 <body>
 
-<div id="pin-gate" style="position:fixed;inset:0;background:#161616;color:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-  <form id="pin-form" style="text-align:center;background:#222;padding:32px 36px;border-radius:14px;max-width:280px;width:90%">
-    <div style="font-weight:800;letter-spacing:1px;font-size:17px;margin-bottom:18px">KAMPA<span style="background:#ffd21e;color:#161616;padding:2px 8px;border-radius:6px">OH</span></div>
-    <p style="color:#d7d7d7;font-size:14px;margin:0 0 14px">Introduce el PIN para ver el documento</p>
-    <input id="pin-input" type="password" inputmode="numeric" autocomplete="off" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #444;background:#1b1b1b;color:#fff;font-size:16px;text-align:center;letter-spacing:4px;box-sizing:border-box">
-    <p id="pin-error" style="color:#ff8a8a;font-size:13px;height:16px;margin:8px 0 0"></p>
-    <button type="submit" style="margin-top:10px;width:100%;padding:10px;border:none;border-radius:8px;background:#ffd21e;color:#161616;font-weight:800;font-size:14px;cursor:pointer">Entrar</button>
-  </form>
-</div>
-<script>
-(function(){
-  var PIN = "1806";
-  var gate = document.getElementById('pin-gate');
-  if (sessionStorage.getItem('kampaoh_pin_ok') === '1') { gate.style.display = 'none'; return; }
-  document.getElementById('pin-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var val = document.getElementById('pin-input').value;
-    if (val === PIN) {
-      sessionStorage.setItem('kampaoh_pin_ok', '1');
-      gate.style.display = 'none';
-    } else {
-      document.getElementById('pin-error').textContent = 'PIN incorrecto';
-      document.getElementById('pin-input').value = '';
-    }
-  });
-})();
-</script>
-
 <header class="hero">
   <div class="wrap">
     <div class="logo">▲ KAMPA<b>OH</b></div>
     <h1>Plan de tareas de la web<br><span class="hl">es.kampaoh.com</span></h1>
-    <p class="subtitle">Lista completa y accionable de todo lo que hay que hacer en la web, con el "cómo" de cada tarea. Basada en la auditoría SEO/GEO/técnica (datos de Search Console, SERP en incógnito y análisis en vivo).</p>
+    <p class="subtitle">Lista completa y accionable de todo lo que hay que hacer en la web, con el "cómo" de cada tarea. Basada en la auditoría SEO/GEO/técnica y en la revisión en vivo de WordPress, Search Console y el servidor.</p>
   </div>
 </header>
 
@@ -112,6 +85,19 @@
     </div>
   </div>
 
+  <div class="card">
+    <b>Punto de partida — verificado en vivo (WordPress, Search Console y servidor, julio 2026).</b>
+    <table>
+      <thead><tr><th>Sistema</th><th>Qué ya tienes a favor / estado real</th></tr></thead>
+      <tbody>
+        <tr><td>WordPress</td><td><b>Redirection</b> (para 301s), <b>Yoast SEO</b>, <b>WPCode Lite</b> + inyector de cabecera (para schema), <b>Smush</b> (imágenes) y <b>Varnish Cache</b> ya instalados. Slider Revolution ya aparece <b>desactivado</b>.</td></tr>
+        <tr><td>Estructura</td><td>Las <b>guías (posts) ya están carpetizadas</b> por categorías (<code>/guias-de-viaje/es/cadiz/…</code>) y posicionan — prueba interna de que funciona. Los <b>campings son Páginas planas</b>: ese es el cambio de la tarea 1.</td></tr>
+        <tr><td>Search Console</td><td><b>1.640 indexadas vs 4.280 sin indexar</b>; el motivo principal es <b>"rastreada, sin indexar" (3.662)</b> = mucho contenido fino/duplicado que consume rastreo. Acceso completo para medir.</td></tr>
+        <tr><td>Servidor (wePanel)</td><td>CPU 10% / memoria 0%: el hosting va <b>sobrado, NO es el cuello de botella</b> (responde en 33 ms). Varnish/Magic Cache y CDN de Cloudflare <b>disponibles</b>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- BLOQUE A -->
   <div class="block-h"><h2>Bloque A · Estructura y contenido (SEO de fondo)</h2><div class="bsub">La base para competir en "camping + zona". Es el proyecto grande, por fases.</div></div>
 
@@ -126,12 +112,13 @@
         <ol class="steps">
           <li>Definir la jerarquía: <code>/campings/espana/andalucia/cadiz/</code> (hub de provincia) → <code>/campings/espana/andalucia/cadiz/el-palmar/</code> (ficha).</li>
           <li>Mapear <b>URL antigua → URL nueva</b> de todas las páginas (hoja de cálculo).</li>
-          <li>Implementar <b>redirecciones 301</b> una a una (nunca borrar sin redirigir).</li>
+          <li>Implementar <b>redirecciones 301</b> una a una con el plugin <b>Redirection</b> (ya instalado). Nunca borrar sin redirigir.</li>
           <li>Hacerlo <b>por fases</b>: primero zonas de bajo tráfico, monitorizar 1-2 semanas, y solo luego las top (Andalucía, Cantabria).</li>
           <li>Actualizar sitemap, enlaces internos y breadcrumbs a las URLs nuevas.</li>
           <li>Vigilar en Search Console: cobertura, redirecciones y posiciones.</li>
         </ol>
       </div>
+      <div class="note win">A favor: el plugin <b>Redirection</b> ya está activo, y las guías de viaje demuestran que la carpetización por categorías <b>ya funciona</b> en vuestra web. Los campings son Páginas planas: hay que darles jerarquía (páginas padre o estructura de categorías/CPT).</div>
       <div class="note">Cambio delicado: hecho de golpe puede tumbar rankings temporalmente. Plan de fases + 301 correctas = riesgo controlado.</div>
     </div>
   </div>
@@ -145,7 +132,7 @@
       <div class="how">
         <div class="htitle">Cómo hacerlo</div>
         <ol class="steps">
-          <li>Liderar <b>title, H1 y URL</b> con "Camping en [zona]" (ej. "Camping en Cádiz — …").</li>
+          <li>Liderar <b>title, H1 y URL</b> con "Camping en [zona]" (ej. "Camping en Cádiz — …"), editable desde <b>Yoast</b>.</li>
           <li>Mantener "glamping" como término <b>secundario</b> (un H2 y en el cuerpo), no eliminarlo: tiene menos volumen pero más intención transaccional.</li>
           <li>Revisar todas las LPZ y fichas para alinear la keyword principal.</li>
         </ol>
@@ -166,7 +153,7 @@
           <li>Añadir 300-500 palabras propias de la zona (qué ver, cuándo ir, por qué acampar allí) — nada de texto duplicado entre provincias.</li>
           <li><b>Enlazar a las guías de viaje</b> de esa zona (que ya rankean) y viceversa: guía ⇄ LPZ ⇄ fichas.</li>
           <li>Listar las fichas de camping de la provincia con enlace de texto (no solo imagen).</li>
-          <li>Incluir FAQ de la zona (enlaza con la tarea 15).</li>
+          <li>Incluir FAQ de la zona (enlaza con la tarea 13).</li>
         </ol>
       </div>
     </div>
@@ -188,6 +175,7 @@
           <li>Añadir <code>sameAs</code> con los enlaces oficiales de esa ficha: su perfil de Google, Instagram, etc.</li>
           <li>Añadir <code>geo</code> con latitud y longitud reales (no solo la dirección en texto).</li>
           <li>Hacer el <code>aggregateRating</code> <b>dinámico y server-side</b> desde el sistema de reseñas propias (tarea 5), y que la nota sea visible en la página.</li>
+          <li>Montar el schema con <b>WPCode Lite</b> o el inyector de cabecera (ambos ya instalados); los breadcrumbs se pueden generar con <b>Yoast</b>.</li>
           <li>Validar con la prueba de resultados enriquecidos de Google.</li>
         </ol>
         <pre><span class="c">// Ejemplo de destino (valores dinámicos entre {{ }})</span>
@@ -230,12 +218,12 @@
           <li>Marcar esas reseñas propias con schema (ya sí, legítimo) → conecta con la tarea 4.</li>
         </ol>
       </div>
-      <div class="note crit">Prioritario el paso 1 (coste cero, elimina el riesgo). Los pasos 2-4 son el proyecto de reseñas propias.</div>
+      <div class="note crit">Verificado en vivo: hoy el rating sale como schema <code>Product</code> (aparece en "Fragmentos de productos" de Search Console) y las reseñas vienen de Elfsight (Google). Prioritario el paso 1 (coste cero, elimina el riesgo). Los pasos 2-4 son el proyecto de reseñas propias.</div>
     </div>
   </div>
 
   <!-- BLOQUE C -->
-  <div class="block-h"><h2>Bloque C · Rendimiento y técnica</h2><div class="bsub">La web pesa 15,4 MB y tarda 7,2 s (LCP). Afecta a conversión, Core Web Vitals y visibilidad.</div></div>
+  <div class="block-h"><h2>Bloque C · Rendimiento y técnica</h2><div class="bsub">La web pesa 15,4 MB y tarda 7,2 s (LCP). El servidor va sobrado: el problema es el front-end.</div></div>
 
   <div class="card task">
     <div class="chk"></div>
@@ -246,7 +234,7 @@
       <div class="how">
         <div class="htitle">Cómo hacerlo</div>
         <ol class="steps">
-          <li>Reescribir el <b>title</b> con gancho + cifra + CTA (ej. "Campings en Cataluña — 15 destinos frente al mar · Reserva sin líos").</li>
+          <li>Reescribir el <b>title</b> (en Yoast) con gancho + cifra + CTA (ej. "Campings en Cataluña — 15 destinos frente al mar · Reserva sin líos").</li>
           <li>Reescribir la <b>meta description</b> (155-160 car.) con propuesta de valor y llamada a la acción.</li>
           <li>Usar Andalucía como plantilla de lo que ya funciona.</li>
           <li>Medir el CTR en Search Console a 2-4 semanas.</li>
@@ -258,13 +246,13 @@
   <div class="card task">
     <div class="chk"></div>
     <div class="task-body">
-      <div class="task-head"><span class="tnum">7</span><p class="ttitle">Optimizar imágenes (WebP/AVIF + lazy-load)</p></div>
+      <div class="task-head"><span class="tnum">7</span><p class="ttitle">Optimizar imágenes (WebP + lazy-load)</p></div>
       <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span></div>
       <p class="why"><b>Por qué:</b> las imágenes son el principal causante de los 15,4 MB y del LCP de 7,2 s.</p>
       <div class="how">
         <div class="htitle">Cómo hacerlo</div>
         <ol class="steps">
-          <li>Convertir imágenes a <b>WebP/AVIF</b> (plugin de optimización o build).</li>
+          <li>Activar en <b>Smush</b> (ya instalado) la conversión a <b>WebP</b> y optimizar en bloque toda la biblioteca de medios.</li>
           <li>Servir tamaños correctos (no "Full Size") y con <code>loading="lazy"</code>.</li>
           <li>Reservar dimensiones (width/height) para evitar saltos (mejora el CLS 0,24).</li>
           <li>Objetivo: peso de página &lt; 3 MB y LCP &lt; 3 s.</li>
@@ -278,14 +266,13 @@
     <div class="task-body">
       <div class="task-head"><span class="tnum">8</span><p class="ttitle">Eliminar / desactivar Slider Revolution (peso muerto)</p></div>
       <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span></div>
-      <p class="why"><b>Por qué:</b> verificado en vivo — carga ~655 KB (incluido CSS de admin) en todas las páginas y <b>no renderiza ningún slider</b> (los carruseles reales son del tema Salient).</p>
+      <p class="why"><b>Por qué:</b> verificado en vivo — carga ~655 KB (incluido CSS de admin) en todas las páginas y <b>no renderiza ningún slider</b> (los carruseles reales son del tema Salient). <b>Estado actual: ya aparece desactivado en el panel de plugins — solo falta desinstalarlo del todo.</b></p>
       <div class="how">
         <div class="htitle">Cómo hacerlo</div>
         <ol class="steps">
           <li>Confirmar en el panel de Slider Revolution que no queda ningún slider publicado en uso.</li>
-          <li>Desactivar el plugin y comprobar home, LPZ, ficha y página de tienda.</li>
+          <li>Comprobar home, LPZ, ficha y página de tienda con el plugin desactivado (ya lo está).</li>
           <li>Si todo se ve igual (debería), <b>desinstalarlo</b> y limpiar caché.</li>
-          <li>Alternativa conservadora: desencolar sus assets solo en el frontend (Asset CleanUp / Perfmatters).</li>
         </ol>
       </div>
     </div>
@@ -303,7 +290,7 @@
           <li>Aplazar (<code>defer</code>/<code>async</code>) y cargar bajo demanda los scripts de terceros.</li>
           <li>Autoalojar las fuentes de Google.</li>
           <li>Eliminar CSS/JS no usado; inline del CSS crítico.</li>
-          <li>Añadir CDN (Cloudflare) + caché de página y de objetos.</li>
+          <li>Activar <b>Varnish / Magic Cache</b> y el <b>CDN de Cloudflare</b> desde wePanel (ya disponibles en tu hosting) y verificar que corréis <b>PHP 8.1+</b> (Herramientas → Selector de PHP).</li>
         </ol>
       </div>
     </div>
@@ -312,17 +299,20 @@
   <div class="card task">
     <div class="chk"></div>
     <div class="task-body">
-      <div class="task-head"><span class="tnum">10</span><p class="ttitle">Canonicalizar las URLs con parámetros UTM de Google Business</p></div>
-      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
-      <p class="why"><b>Por qué:</b> las fichas se indexan también con <code>?utm_source=googlemybusiness…</code>, generando URLs duplicadas que diluyen señales y provocan canibalización (visto en Alicante: la misma ficha en pos. 4,7 y 46,8).</p>
+      <div class="task-head"><span class="tnum">10</span><p class="ttitle">Limpiar indexación: canonical UTM + 404 + contenido fino</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
+      <p class="why"><b>Por qué:</b> Search Console muestra <b>1.640 páginas indexadas frente a 4.280 sin indexar</b>, y el motivo principal es <b>"rastreada, actualmente sin indexar" (3.662 páginas)</b>: Google entra a miles de páginas finas/duplicadas y decide no indexarlas, malgastando presupuesto de rastreo que debería ir a las páginas que quieres posicionar. Además hay URLs duplicadas por <code>?utm_source=googlemybusiness…</code> (canibalización vista en Alicante), 107 errores 404 y 120 redirecciones.</p>
       <div class="how">
         <div class="htitle">Cómo hacerlo</div>
         <ol class="steps">
-          <li>Asegurar <code>rel="canonical"</code> a la URL limpia (sin parámetros) en todas las fichas.</li>
-          <li>En las fichas de Google Business, usar la URL limpia siempre que se pueda.</li>
-          <li>Verificar en Search Console que se consolidan en la versión canónica.</li>
+          <li>Asegurar <code>rel="canonical"</code> a la URL limpia (sin parámetros) en todas las fichas; en Google Business usar la URL limpia.</li>
+          <li><b>Podar o consolidar</b> el contenido fino/duplicado (páginas antiguas tipo <code>/campings-ninos/…</code>, tags, contenido boilerplate repetido) — fusionar en páginas fuertes o aplicar <code>noindex</code> a lo que no aporte.</li>
+          <li>Corregir los 404 y revisar las cadenas de redirección con el plugin <b>Redirection</b>.</li>
+          <li>Tras la limpieza, pedir reindexación de las páginas objetivo con <b>Inspección de URLs</b> en Search Console.</li>
+          <li>Vigilar que sube el nº de indexadas y baja el de "rastreada, sin indexar".</li>
         </ol>
       </div>
+      <div class="note">Muy relacionado con la tarea 1: la carpetización + consolidación es lo que de verdad libera el presupuesto de rastreo hacia las LPZ de provincia.</div>
     </div>
   </div>
 
@@ -421,7 +411,7 @@
       <div class="task-head"><span class="tnum">16</span><p class="ttitle">Meta descriptions únicas (eliminar duplicadas/pobres)</p></div>
       <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team-mk">Marketing</span></div>
       <p class="why"><b>Por qué:</b> hay LPZ con meta que solo repite el título (ej. Huelva: "Campings y Glampings en Huelva").</p>
-      <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Escribir una meta description única (155-160 car.) por página, con gancho y CTA.</li></ol></div>
+      <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Escribir una meta description única (155-160 car.) por página en Yoast, con gancho y CTA.</li></ol></div>
     </div>
   </div>
 
@@ -430,7 +420,7 @@
     <div class="task-body">
       <div class="task-head"><span class="tnum">17</span><p class="ttitle">Personalizar el contenido duplicado entre LPZ</p></div>
       <div class="badges"><span class="tag p-baja">Baja</span><span class="tag e">Esfuerzo medio</span><span class="tag team-mk">Marketing</span></div>
-      <p class="why"><b>Por qué:</b> el bloque "Experiencia Kampaoh" se repite igual en todas las provincias: riesgo de contenido duplicado.</p>
+      <p class="why"><b>Por qué:</b> el bloque "Experiencia Kampaoh" se repite igual en todas las provincias: riesgo de contenido duplicado (y alimenta las 3.662 páginas sin indexar).</p>
       <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Reescribir ese bloque con particularidades reales de cada zona (se solapa con la tarea 3).</li></ol></div>
     </div>
   </div>
@@ -440,7 +430,7 @@
     <div class="task-body">
       <div class="task-head"><span class="tnum">18</span><p class="ttitle">Evaluar migración a un tema más ligero (fase futura)</p></div>
       <div class="badges"><span class="tag p-baja">Baja</span><span class="tag e">Esfuerzo alto</span><span class="tag team">Desarrollo</span></div>
-      <p class="why"><b>Por qué:</b> el tema Salient + WPBakery es pesado y contribuye a la lentitud. Pero primero hay que agotar las optimizaciones baratas (tareas 7-9); solo si los Core Web Vitals siguen mal, plantear el cambio.</p>
+      <p class="why"><b>Por qué:</b> el tema Salient + WPBakery es pesado y contribuye a la lentitud. Pero primero hay que agotar las optimizaciones baratas (tareas 7-9); solo si los Core Web Vitals siguen mal, plantear el cambio. Recordatorio: el servidor va sobrado, así que la lentitud es del tema/front-end, no del hosting.</p>
       <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Tras optimizar, medir CWV. Si siguen mal, evaluar tema ligero (GeneratePress, Kadence, Blocksy o tema de bloques). Encajaría junto a la carpetización (tarea 1).</li></ol></div>
     </div>
   </div>
@@ -468,9 +458,9 @@
     <table class="road">
       <thead><tr><th>Fase</th><th>Tareas</th><th>Objetivo</th></tr></thead>
       <tbody>
-        <tr><td>Fase 1 · Ya (2-3 sem)</td><td>6, 8, 10, 11, 5 (paso 1), 16</td><td>Quick wins de visibilidad y limpieza, riesgo cero.</td></tr>
-        <tr><td>Fase 2 · Velocidad (3-6 sem)</td><td>7, 9</td><td>LCP &lt; 3 s y peso &lt; 3 MB.</td></tr>
-        <tr><td>Fase 3 · Estructura (4-10 sem)</td><td>1, 2, 3, 12</td><td>Carpetización + LPZ fuertes para "camping + zona".</td></tr>
+        <tr><td>Fase 1 · Ya (2-3 sem)</td><td>6, 8, 11, 5 (paso 1), 16</td><td>Quick wins de visibilidad y limpieza, riesgo cero.</td></tr>
+        <tr><td>Fase 2 · Velocidad (3-6 sem)</td><td>7, 9</td><td>LCP &lt; 3 s y peso &lt; 3 MB (Smush + caché/CDN ya disponibles).</td></tr>
+        <tr><td>Fase 3 · Estructura (4-10 sem)</td><td>1, 2, 3, 10, 12</td><td>Carpetización + LPZ fuertes + limpieza de indexación para "camping + zona".</td></tr>
         <tr><td>Fase 4 · Datos y GEO (6-12 sem)</td><td>4, 5 (reseñas propias), 13, 14, 15</td><td>Schema completo, entidad y visibilidad en IA.</td></tr>
         <tr><td>Continuo</td><td>17, 18, 19</td><td>Mantenimiento, decisión de tema y medición.</td></tr>
       </tbody>
@@ -481,8 +471,8 @@
 
 <footer>
   <div class="wrap">
-    <p><b>Plan de tareas web — Kampaoh ES</b> · Basado en la auditoría SEO/GEO/técnica · Julio 2026.</p>
-    <p>Fuentes: Google Search Console, DataForSEO, SERP en vivo (incógnito), Lighthouse e inspección en vivo del sitio.</p>
+    <p><b>Plan de tareas web — Kampaoh ES</b> · Basado en la auditoría SEO/GEO/técnica y revisión en vivo de WordPress, Search Console y servidor · Julio 2026.</p>
+    <p>Fuentes: Google Search Console, DataForSEO, SERP en vivo (incógnito), Lighthouse e inspección en vivo del sitio y del panel.</p>
   </div>
 </footer>
 
