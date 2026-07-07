@@ -452,13 +452,35 @@
     </div>
   </div>
 
+  <!-- BLOQUE F -->
+  <div class="block-h"><h2>Bloque F · Navegación y usabilidad</h2><div class="bsub">Detectado en móvil: afecta directamente al acceso y al enlazado interno de las LPZ.</div></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">20</span><p class="ttitle">Arreglar el menú móvil: los destinos deben enlazar a su LPZ</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
+      <p class="why"><b>Por qué:</b> en móvil, al pulsar "Cádiz", "Huelva", "Málaga"… solo se <b>despliega el submenú</b>, no se navega a la LPZ de la provincia. Resultado: la página de provincia —justo la que queremos posicionar para "camping en X"— <b>no es accesible desde el menú móvil</b> y pierde un enlace interno importante. En escritorio el enlace existe; en móvil el toque abre el acordeón en vez de llevar a la página.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Separar la acción: que la <b>etiqueta</b> ("Cádiz") enlace a la LPZ y una <b>flecha/icono aparte</b> despliegue el submenú (patrón estándar de menús móviles).</li>
+          <li>Alternativa si el tema no lo permite: añadir la propia provincia como <b>primer ítem del submenú</b> ("Ver todos los campings en Cádiz" → LPZ).</li>
+          <li>Verificar que el enlace a la LPZ está en el <b>HTML</b> (rastreable) también en la versión móvil, no solo en escritorio.</li>
+          <li>Aplicar a todas las provincias y regiones del menú.</li>
+        </ol>
+      </div>
+      <div class="note">Refuerza el enlazado interno hacia las LPZ (tareas 1 y 3) y mejora la conversión en móvil, donde está la mayoría del tráfico.</div>
+    </div>
+  </div>
+
   <!-- ROADMAP -->
   <div class="block-h"><h2>Orden de ejecución recomendado</h2><div class="bsub">La lista de arriba es temática; este es el orden en el que conviene hacerlo.</div></div>
   <div class="card">
     <table class="road">
       <thead><tr><th>Fase</th><th>Tareas</th><th>Objetivo</th></tr></thead>
       <tbody>
-        <tr><td>Fase 1 · Ya (2-3 sem)</td><td>6, 8, 11, 5 (paso 1), 16</td><td>Quick wins de visibilidad y limpieza, riesgo cero.</td></tr>
+        <tr><td>Fase 1 · Ya (2-3 sem)</td><td>6, 8, 11, 20, 5 (paso 1), 16</td><td>Quick wins de visibilidad, navegación y limpieza, riesgo cero.</td></tr>
         <tr><td>Fase 2 · Velocidad (3-6 sem)</td><td>7, 9</td><td>LCP &lt; 3 s y peso &lt; 3 MB (Smush + caché/CDN ya disponibles).</td></tr>
         <tr><td>Fase 3 · Estructura (4-10 sem)</td><td>1, 2, 3, 10, 12</td><td>Carpetización + LPZ fuertes + limpieza de indexación para "camping + zona".</td></tr>
         <tr><td>Fase 4 · Datos y GEO (6-12 sem)</td><td>4, 5 (reseñas propias), 13, 14, 15</td><td>Schema completo, entidad y visibilidad en IA.</td></tr>
