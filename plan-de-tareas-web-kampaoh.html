@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de tareas web — Kampaoh ES</title>
+<style>
+  :root{
+    --ink:#1b1b1b;--ink2:#4a4a4a;--muted:#7a7a7a;--line:#e7e7e7;--bg:#f6f6f4;--card:#fff;
+    --yellow:#ffd21e;--yellow-d:#e9b800;--green:#1f9d55;--green-bg:#e6f5ec;--red:#d64545;--red-bg:#fbe9e9;
+    --amber:#e08a00;--amber-bg:#fdf1de;--blue:#2b6cb0;--blue-bg:#e8f1fb;--radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header.hero{background:linear-gradient(135deg,#161616,#2b2b2b);color:#fff;padding:48px 0 40px}
+  .logo{font-weight:800;letter-spacing:1px;font-size:19px;margin-bottom:22px}
+  .logo b{background:var(--yellow);color:#161616;padding:2px 8px;border-radius:6px}
+  h1{font-size:31px;margin:0 0 10px;font-weight:800}
+  h1 .hl{background:var(--yellow);color:#161616;padding:0 8px;border-radius:6px}
+  .subtitle{color:#d7d7d7;font-size:16px;max-width:720px}
+  main{padding:32px 0 60px}
+  h2{font-size:22px;margin:34px 0 6px;font-weight:800}
+  .lead{color:var(--ink2);margin:4px 0 16px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.2px;white-space:nowrap}
+  .p-alta{background:var(--red-bg);color:var(--red)}
+  .p-media{background:var(--amber-bg);color:var(--amber)}
+  .p-baja{background:var(--blue-bg);color:var(--blue)}
+  .e{background:#eee;color:#555}
+  .team{background:#efeafc;color:#6b46c1}
+  .team-mk{background:#e6f5ec;color:var(--green)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .task{display:flex;gap:16px;align-items:flex-start}
+  .chk{flex:0 0 26px;height:26px;border:2px solid #cfcfcf;border-radius:7px;margin-top:3px}
+  .task-body{flex:1;min-width:0}
+  .task-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .tnum{background:#161616;color:var(--yellow);font-weight:800;border-radius:8px;padding:2px 10px;font-size:14px}
+  .ttitle{font-size:18px;font-weight:800;margin:0}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+  .why{color:var(--ink2);margin:8px 0 6px}
+  .why b{color:var(--ink)}
+  .how{margin:8px 0 0}
+  .how .htitle{font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;margin-bottom:4px}
+  ol.steps{margin:4px 0;padding-left:20px}
+  ol.steps li{margin:5px 0}
+  code{background:#f0f0ee;padding:1px 6px;border-radius:5px;font-size:12.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  pre{background:#1e1e1e;color:#e8e8e8;padding:14px 16px;border-radius:10px;overflow:auto;font-size:12.5px;line-height:1.5;margin:10px 0}
+  pre .c{color:#7fb069}
+  .note{border-left:4px solid var(--yellow-d);background:#fffdf2;padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0;font-size:14.5px}
+  .note.crit{border-color:var(--red);background:var(--red-bg)}
+  .block-h{border-left:5px solid var(--yellow);padding-left:12px;margin-top:38px}
+  .block-h h2{margin:0}
+  .block-h .bsub{color:var(--muted);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{background:#fafafa;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.3px;color:#555}
+  .road td:first-child{font-weight:700}
+  footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:13px}
+  @media(max-width:520px){h1{font-size:25px}.task{gap:10px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="logo">▲ KAMPA<b>OH</b></div>
+    <h1>Plan de tareas de la web<br><span class="hl">es.kampaoh.com</span></h1>
+    <p class="subtitle">Lista completa y accionable de todo lo que hay que hacer en la web, con el "cómo" de cada tarea. Basada en la auditoría SEO/GEO/técnica (datos de Search Console, SERP en incógnito y análisis en vivo).</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="card">
+    <b>Cómo leer este documento.</b> Cada tarea trae su prioridad, esfuerzo, equipo responsable y los pasos concretos para hacerla. El <b>orden de la lista es temático</b> (agrupado por bloques); el <b>orden de ejecución recomendado</b> está en el roadmap del final — no coinciden a propósito: algunas tareas rápidas conviene hacerlas antes que las de fondo.
+    <div class="legend">
+      <span class="tag p-alta">Prioridad alta</span>
+      <span class="tag p-media">Prioridad media</span>
+      <span class="tag p-baja">Prioridad baja</span>
+      <span class="tag e">Esfuerzo</span>
+      <span class="tag team">Desarrollo</span>
+      <span class="tag team-mk">Marketing / SEO</span>
+    </div>
+  </div>
+
+  <!-- BLOQUE A -->
+  <div class="block-h"><h2>Bloque A · Estructura y contenido (SEO de fondo)</h2><div class="bsub">La base para competir en "camping + zona". Es el proyecto grande, por fases.</div></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">1</span><p class="ttitle">Carpetizar las URLs</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo alto</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
+      <p class="why"><b>Por qué:</b> hoy las URLs son planas (<code>/el-palmar-vejer-cadiz/</code>) y las fichas cuelgan de la raíz sin relación con su provincia. Los competidores que ganan (campings.com, campings.net) y nuestro propio PT están carpetizados. Sin jerarquía, Google no consolida la provincia como entidad y las fichas se canibalizan.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Definir la jerarquía: <code>/campings/espana/andalucia/cadiz/</code> (hub de provincia) → <code>/campings/espana/andalucia/cadiz/el-palmar/</code> (ficha).</li>
+          <li>Mapear <b>URL antigua → URL nueva</b> de todas las páginas (hoja de cálculo).</li>
+          <li>Implementar <b>redirecciones 301</b> una a una (nunca borrar sin redirigir).</li>
+          <li>Hacerlo <b>por fases</b>: primero zonas de bajo tráfico, monitorizar 1-2 semanas, y solo luego las top (Andalucía, Cantabria).</li>
+          <li>Actualizar sitemap, enlaces internos y breadcrumbs a las URLs nuevas.</li>
+          <li>Vigilar en Search Console: cobertura, redirecciones y posiciones.</li>
+        </ol>
+      </div>
+      <div class="note">Cambio delicado: hecho de golpe puede tumbar rankings temporalmente. Plan de fases + 301 correctas = riesgo controlado.</div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">2</span><p class="ttitle">Enfocar "camping + zona" y relegar "glamping"</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo bajo</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> "camping + provincia" mueve entre 5× y 21× más búsquedas que "glamping + provincia" (ej. camping huelva 3.600 vs glamping huelva 170). El título actual "Campings y Glampings en X" reparte el foco.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Liderar <b>title, H1 y URL</b> con "Camping en [zona]" (ej. "Camping en Cádiz — …").</li>
+          <li>Mantener "glamping" como término <b>secundario</b> (un H2 y en el cuerpo), no eliminarlo: tiene menos volumen pero más intención transaccional.</li>
+          <li>Revisar todas las LPZ y fichas para alinear la keyword principal.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">3</span><p class="ttitle">Reestructurar las LPZ con bloques de texto de zona</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> las guías de viaje posicionan bien precisamente porque tienen texto útil. Las LPZ hoy son casi solo imágenes clicables. Necesitan contenido real de zona para competir por "camping en X".</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Abrir cada LPZ con un <b>bloque de respuesta directa</b>: "Los mejores campings en Cádiz son Kampaoh El Palmar, Tarifa, Los Caños…".</li>
+          <li>Añadir 300-500 palabras propias de la zona (qué ver, cuándo ir, por qué acampar allí) — nada de texto duplicado entre provincias.</li>
+          <li><b>Enlazar a las guías de viaje</b> de esa zona (que ya rankean) y viceversa: guía ⇄ LPZ ⇄ fichas.</li>
+          <li>Listar las fichas de camping de la provincia con enlace de texto (no solo imagen).</li>
+          <li>Incluir FAQ de la zona (enlaza con la tarea 15).</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE B -->
+  <div class="block-h"><h2>Bloque B · Datos estructurados y reseñas</h2><div class="bsub">Para que Google e IA entiendan la ficha y para conseguir estrellas de forma legítima.</div></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">4</span><p class="ttitle">Datos estructurados: sameAs + geo + AggregateRating dinámico</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
+      <p class="why"><b>Por qué:</b> hoy las fichas (ej. Tarifa) tienen <code>Campground</code>, dirección y FAQ, pero <b>les falta <code>sameAs</code> y <code>geo</code></b>, y el rating cuelga de un nodo <code>Product</code> aparte. Sin sameAs/geo, Google no ata bien la landing con la ficha de Google (SEO local + GEO).</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Consolidar todo en <b>un solo nodo</b> <code>LodgingBusiness</code>/<code>Campground</code> (no repartir en <code>Product</code>).</li>
+          <li>Añadir <code>sameAs</code> con los enlaces oficiales de esa ficha: su perfil de Google, Instagram, etc.</li>
+          <li>Añadir <code>geo</code> con latitud y longitud reales (no solo la dirección en texto).</li>
+          <li>Hacer el <code>aggregateRating</code> <b>dinámico y server-side</b> desde el sistema de reseñas propias (tarea 5), y que la nota sea visible en la página.</li>
+          <li>Validar con la prueba de resultados enriquecidos de Google.</li>
+        </ol>
+        <pre><span class="c">// Ejemplo de destino (valores dinámicos entre {{ }})</span>
+{
+  "@context": "https://schema.org",
+  "@type": "Campground",
+  "name": "Kampaoh Tarifa",
+  "url": "https://es.kampaoh.com/.../cadiz/tarifa/",
+  "telephone": "+34955252440",
+  "address": { "@type": "PostalAddress", "streetAddress": "N-340, 78",
+    "addressLocality": "Tarifa", "addressRegion": "Andalucía",
+    "postalCode": "11380", "addressCountry": "ES" },
+  "geo": { "@type": "GeoCoordinates",
+    "latitude": {{lat}}, "longitude": {{lng}} },
+  "sameAs": [
+    "https://www.google.com/maps/place/?q=place_id:{{place_id}}",
+    "https://www.instagram.com/kampaoh/"
+  ],
+  "aggregateRating": { "@type": "AggregateRating",
+    "ratingValue": {{media_resenas_propias}},
+    "reviewCount": {{total_resenas_propias}},
+    "bestRating": 5, "worstRating": 1 }
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">5</span><p class="ttitle">Sacar las reseñas de Elfsight del schema y montar reseñas propias</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> las 1.781 reseñas marcadas hoy vienen de Elfsight (reseñas de Google). Marcarlas como propias en el schema <b>va contra las normas de Google</b> (riesgo de penalización) y, siendo de tu propio negocio, ni siquiera son elegibles para estrellas. Riesgo sin beneficio.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li><b>Ya:</b> quitar el <code>AggregateRating</code> del schema mientras venga de Elfsight/Google (puedes seguir mostrando el widget al visitante, pero no marcarlo).</li>
+          <li>Montar un <b>sistema de reseñas propias</b>: encuesta al cliente tras la estancia.</li>
+          <li>Publicar esas reseñas <b>en HTML</b> en la página del destino.</li>
+          <li>Marcar esas reseñas propias con schema (ya sí, legítimo) → conecta con la tarea 4.</li>
+        </ol>
+      </div>
+      <div class="note crit">Prioritario el paso 1 (coste cero, elimina el riesgo). Los pasos 2-4 son el proyecto de reseñas propias.</div>
+    </div>
+  </div>
+
+  <!-- BLOQUE C -->
+  <div class="block-h"><h2>Bloque C · Rendimiento y técnica</h2><div class="bsub">La web pesa 15,4 MB y tarda 7,2 s (LCP). Afecta a conversión, Core Web Vitals y visibilidad.</div></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">6</span><p class="ttitle">Quick win de CTR: reescribir titles y meta de las páginas de categoría</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo bajo</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> páginas de categoría con muchísimas impresiones y CTR de 1-3% (España, Cataluña, Cantabria, C. Valenciana). Andalucía, igual de posicionada, logra 7,7%. Igualarlo = +40.000-50.000 clics/trimestre sin cambiar posiciones.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Reescribir el <b>title</b> con gancho + cifra + CTA (ej. "Campings en Cataluña — 15 destinos frente al mar · Reserva sin líos").</li>
+          <li>Reescribir la <b>meta description</b> (155-160 car.) con propuesta de valor y llamada a la acción.</li>
+          <li>Usar Andalucía como plantilla de lo que ya funciona.</li>
+          <li>Medir el CTR en Search Console a 2-4 semanas.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">7</span><p class="ttitle">Optimizar imágenes (WebP/AVIF + lazy-load)</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span></div>
+      <p class="why"><b>Por qué:</b> las imágenes son el principal causante de los 15,4 MB y del LCP de 7,2 s.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Convertir imágenes a <b>WebP/AVIF</b> (plugin de optimización o build).</li>
+          <li>Servir tamaños correctos (no "Full Size") y con <code>loading="lazy"</code>.</li>
+          <li>Reservar dimensiones (width/height) para evitar saltos (mejora el CLS 0,24).</li>
+          <li>Objetivo: peso de página &lt; 3 MB y LCP &lt; 3 s.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">8</span><p class="ttitle">Eliminar / desactivar Slider Revolution (peso muerto)</p></div>
+      <div class="badges"><span class="tag p-alta">Alta</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span></div>
+      <p class="why"><b>Por qué:</b> verificado en vivo — carga ~655 KB (incluido CSS de admin) en todas las páginas y <b>no renderiza ningún slider</b> (los carruseles reales son del tema Salient).</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Confirmar en el panel de Slider Revolution que no queda ningún slider publicado en uso.</li>
+          <li>Desactivar el plugin y comprobar home, LPZ, ficha y página de tienda.</li>
+          <li>Si todo se ve igual (debería), <b>desinstalarlo</b> y limpiar caché.</li>
+          <li>Alternativa conservadora: desencolar sus assets solo en el frontend (Asset CleanUp / Perfmatters).</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">9</span><p class="ttitle">Diferir JS/CSS de terceros + caché + CDN</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span></div>
+      <p class="why"><b>Por qué:</b> scripts de terceros (Elfsight, Asksuite, GTM, Cookiebot, fuentes de Google) bloquean el renderizado.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Aplazar (<code>defer</code>/<code>async</code>) y cargar bajo demanda los scripts de terceros.</li>
+          <li>Autoalojar las fuentes de Google.</li>
+          <li>Eliminar CSS/JS no usado; inline del CSS crítico.</li>
+          <li>Añadir CDN (Cloudflare) + caché de página y de objetos.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">10</span><p class="ttitle">Canonicalizar las URLs con parámetros UTM de Google Business</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span><span class="tag team-mk">SEO</span></div>
+      <p class="why"><b>Por qué:</b> las fichas se indexan también con <code>?utm_source=googlemybusiness…</code>, generando URLs duplicadas que diluyen señales y provocan canibalización (visto en Alicante: la misma ficha en pos. 4,7 y 46,8).</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Asegurar <code>rel="canonical"</code> a la URL limpia (sin parámetros) en todas las fichas.</li>
+          <li>En las fichas de Google Business, usar la URL limpia siempre que se pueda.</li>
+          <li>Verificar en Search Console que se consolidan en la versión canónica.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">11</span><p class="ttitle">Añadir alt + texto de ancla a las imágenes-enlace de destinos</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span><span class="tag team-mk">Marketing</span></div>
+      <p class="why"><b>Por qué:</b> en las LPZ las imágenes clicables enlazan a las fichas <b>sin <code>alt</code> ni texto de ancla</b>, así que no pasan señal SEO a las fichas de camping.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Poner <code>alt</code> descriptivo a cada imagen enlazada (ej. <code>alt="Camping en Isla Cristina, Huelva"</code>) — actúa como anchor text.</li>
+          <li>Añadir además un enlace de texto visible tipo "Ver camping en Isla Cristina".</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE D -->
+  <div class="block-h"><h2>Bloque D · GEO (buscadores con IA) y visibilidad</h2><div class="bsub">Para que ChatGPT, Perplexity, Gemini y los AI Overviews citen y recomienden Kampaoh.</div></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">12</span><p class="ttitle">Empujar a página 1 las guías de viaje de alto volumen</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo medio</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> hay guías de destino en posiciones 15-30 con decenas de miles de búsquedas/mes (betanzos, vegueta, guadix, islantilla…). Subirlas multiplica el tráfico y alimenta el GEO.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Actualizar y ampliar cada guía (frescura + profundidad).</li>
+          <li>Enlazado interno desde páginas fuertes (home, LPZ) hacia las guías, con anchor descriptivo.</li>
+          <li>Conectar cada guía con su LPZ/ficha (guía → producto).</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">13</span><p class="ttitle">Renderizar contenido clave en HTML + FAQPage + respuesta directa</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo medio</span><span class="tag team">Desarrollo</span><span class="tag team-mk">Marketing</span></div>
+      <p class="why"><b>Por qué:</b> la puntuación "agentic" es 26/100. Las reseñas y datos cargan por JS y los bots de IA no los ven. Sin contenido legible en HTML, la IA no puede citar Kampaoh.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Servir el contenido clave (reseñas, servicios, precios orientativos) <b>en el HTML</b>, no solo por JavaScript.</li>
+          <li>Abrir cada página con un <b>párrafo de respuesta directa</b> extractable.</li>
+          <li>Marcar las FAQ con <code>FAQPage</code>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">14</span><p class="ttitle">robots.txt explícito para bots de IA + publicar llms.txt</p></div>
+      <div class="badges"><span class="tag p-baja">Baja</span><span class="tag e">Esfuerzo bajo</span><span class="tag team">Desarrollo</span></div>
+      <p class="why"><b>Por qué:</b> el <code>robots.txt</code> actual NO bloquea a las IAs (bien), pero conviene dejarlo explícito. El <code>llms.txt</code> no existe; es un extra de bajo coste (estándar aún no oficial, no urgente).</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Añadir reglas explícitas en <code>robots.txt</code> permitiendo GPTBot, PerplexityBot y ClaudeBot.</li>
+          <li>Crear un fichero <code>llms.txt</code> (Markdown: quién eres + enlaces a destinos, guías top y reservas) y subirlo a la <b>raíz</b> del dominio.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">15</span><p class="ttitle">Consistencia de entidad: NAP + ficha de Google + Wikidata</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> para que Google y las IAs reconozcan cada destino como una entidad de confianza y conecten landing ↔ ficha.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Nombre, dirección y teléfono (NAP) <b>idénticos</b> en web, Google Business y directorios.</li>
+          <li>En cada ficha de Google Business, el campo "Sitio web" debe apuntar a la <b>URL exacta</b> de su landing (no a la home).</li>
+          <li>Registrar/actualizar la entidad Kampaoh en Wikidata.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE E -->
+  <div class="block-h"><h2>Bloque E · Mantenimiento y decisiones de fondo</h2></div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">16</span><p class="ttitle">Meta descriptions únicas (eliminar duplicadas/pobres)</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Esfuerzo bajo</span><span class="tag team-mk">Marketing</span></div>
+      <p class="why"><b>Por qué:</b> hay LPZ con meta que solo repite el título (ej. Huelva: "Campings y Glampings en Huelva").</p>
+      <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Escribir una meta description única (155-160 car.) por página, con gancho y CTA.</li></ol></div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">17</span><p class="ttitle">Personalizar el contenido duplicado entre LPZ</p></div>
+      <div class="badges"><span class="tag p-baja">Baja</span><span class="tag e">Esfuerzo medio</span><span class="tag team-mk">Marketing</span></div>
+      <p class="why"><b>Por qué:</b> el bloque "Experiencia Kampaoh" se repite igual en todas las provincias: riesgo de contenido duplicado.</p>
+      <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Reescribir ese bloque con particularidades reales de cada zona (se solapa con la tarea 3).</li></ol></div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">18</span><p class="ttitle">Evaluar migración a un tema más ligero (fase futura)</p></div>
+      <div class="badges"><span class="tag p-baja">Baja</span><span class="tag e">Esfuerzo alto</span><span class="tag team">Desarrollo</span></div>
+      <p class="why"><b>Por qué:</b> el tema Salient + WPBakery es pesado y contribuye a la lentitud. Pero primero hay que agotar las optimizaciones baratas (tareas 7-9); solo si los Core Web Vitals siguen mal, plantear el cambio.</p>
+      <div class="how"><div class="htitle">Cómo hacerlo</div><ol class="steps"><li>Tras optimizar, medir CWV. Si siguen mal, evaluar tema ligero (GeneratePress, Kadence, Blocksy o tema de bloques). Encajaría junto a la carpetización (tarea 1).</li></ol></div>
+    </div>
+  </div>
+
+  <div class="card task">
+    <div class="chk"></div>
+    <div class="task-body">
+      <div class="task-head"><span class="tnum">19</span><p class="ttitle">Medición y control</p></div>
+      <div class="badges"><span class="tag p-media">Media</span><span class="tag e">Continuo</span><span class="tag team-mk">Marketing / SEO</span></div>
+      <p class="why"><b>Por qué:</b> para no volar a ciegas, sobre todo durante la carpetización.</p>
+      <div class="how">
+        <div class="htitle">Cómo hacerlo</div>
+        <ol class="steps">
+          <li>Panel en Search Console: CTR, posiciones y cobertura de las páginas objetivo.</li>
+          <li><b>Validar siempre las posiciones en SERP en incógnito</b>, no en la media de GSC (que engaña).</li>
+          <li>Alertas: caída de tráfico orgánico &gt;40% o de conversión &gt;30%.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="block-h"><h2>Orden de ejecución recomendado</h2><div class="bsub">La lista de arriba es temática; este es el orden en el que conviene hacerlo.</div></div>
+  <div class="card">
+    <table class="road">
+      <thead><tr><th>Fase</th><th>Tareas</th><th>Objetivo</th></tr></thead>
+      <tbody>
+        <tr><td>Fase 1 · Ya (2-3 sem)</td><td>6, 8, 10, 11, 5 (paso 1), 16</td><td>Quick wins de visibilidad y limpieza, riesgo cero.</td></tr>
+        <tr><td>Fase 2 · Velocidad (3-6 sem)</td><td>7, 9</td><td>LCP &lt; 3 s y peso &lt; 3 MB.</td></tr>
+        <tr><td>Fase 3 · Estructura (4-10 sem)</td><td>1, 2, 3, 12</td><td>Carpetización + LPZ fuertes para "camping + zona".</td></tr>
+        <tr><td>Fase 4 · Datos y GEO (6-12 sem)</td><td>4, 5 (reseñas propias), 13, 14, 15</td><td>Schema completo, entidad y visibilidad en IA.</td></tr>
+        <tr><td>Continuo</td><td>17, 18, 19</td><td>Mantenimiento, decisión de tema y medición.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Plan de tareas web — Kampaoh ES</b> · Basado en la auditoría SEO/GEO/técnica · Julio 2026.</p>
+    <p>Fuentes: Google Search Console, DataForSEO, SERP en vivo (incógnito), Lighthouse e inspección en vivo del sitio.</p>
+  </div>
+</footer>
+
+</body>
+</html>
